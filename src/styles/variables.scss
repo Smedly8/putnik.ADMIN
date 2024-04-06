@@ -30,6 +30,11 @@ $small-radius: 4px;
   color: $black;
 }
 
+@mixin baseText {
+  font-size: 16px;
+  color: $black; 
+}
+
 // shadows
 $shadow:  0 0 5px 5px #00000009;
 

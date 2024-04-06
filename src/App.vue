@@ -29,5 +29,6 @@
     margin: auto 30px auto 0;
     border-radius: 16px;
     padding: 30px;
+    overflow-y: auto;
 }
 </style>

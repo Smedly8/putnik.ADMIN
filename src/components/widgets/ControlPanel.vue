@@ -1,8 +1,9 @@
 <script setup>
 import BaseButton from '@/components/ui/BaseButton.vue'
+const emit = defineEmits(['create'])
 
 const handleClick = () => {
-
+    emit('create')
 }
 </script>
 

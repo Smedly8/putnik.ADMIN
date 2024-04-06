@@ -21,7 +21,7 @@
             <p class="middle__type">{{getPointType(point.type)}}</p>
         </div>
         <div class="map">
-            <YMapApp/>
+            <!-- <YMapApp/> -->
         </div>
     </div>
 </template>
