@@ -1,0 +1,16 @@
+@import './variables.scss';
+@import './reset.scss';
+
+$breakpoints: (
+  desktop_m: 1440px,
+  tablet: 1140px,
+  mobile: 780px,
+  m_tablet: 920px,
+  s_laptop: 1024px
+);
+
+@mixin respond-to($name) {
+  @media (max-width: map-get($breakpoints, $name)) {
+    @content;
+  }
+}
