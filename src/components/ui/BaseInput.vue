@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="input-wrapper" :class="{'input-wrapper--warning':warning, 'input-wrapper--noLabel': label == false}">
+      <p v-if="title" class="title">{{title}}</p>
       <input
         @focus="$emit('v-focus')" 
         @blur="$emit('v-blur')"
@@ -11,7 +12,7 @@
         required
         :placeholder="label"
       />
-      <img class="input-warning" src="@/assets/icons/error.png" alt="">
+      <img class="input-warning" src="/images/icons/error.png" alt="">
     </div>
     <p class="input-warning-text" :class="{'input-warning-text--show':warning}">{{warning}}</p>
   </div>
@@ -36,6 +37,10 @@
       },
       type: {
         type: [String],
+        default: "",
+      },
+      title: {
+        type: String,
         default: "",
       }
     },
@@ -74,10 +79,10 @@
       color: #A9A9A9;
     }
     &:hover{
-      border: 1px solid var(--mainColor);
+      border: 1px solid $primary;
     }
     &:focus{
-      border: 1px solid var(--mainColor);
+      border: 1px solid $primary;
     }
     &-warning{
       position: absolute;
@@ -160,5 +165,12 @@
       font-family: 'Halvar';
       font-size: 18px;
     }
+  }
+
+  .title{
+    font-size: 14px;
+    color: $black;
+    opacity: 0.5;
+    margin-bottom: 4px;
   }
 </style>

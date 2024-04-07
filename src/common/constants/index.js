@@ -1,5 +1,20 @@
-export const pointTypes = {
-    0: 'Хаб',
-    1: 'Резорт',
-    2: 'Пит-стоп'
-}
+export const pointTypes = [
+    {
+        en: "hub",
+        ru: "Хаб",
+          
+    },
+    {
+        en: 'pitstop',
+        ru: 'Питстоп',
+    },
+    {
+        en: "attraction",
+        ru: "Точка интереса",
+    },
+    {
+        en: "resort",
+        ru: 'Резорт',
+    }
+]
+

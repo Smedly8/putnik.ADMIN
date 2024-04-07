@@ -9,6 +9,11 @@ const routes = [
     component: PointsView,
     name: 'Локации',  
     sideBar: false,
+    redirect: to => {
+      // the function receives the target route as the argument
+      // we return a redirect path/location here.
+      return { path: '/points' }
+    },
   },
   { 
     path: '/points', 
@@ -16,7 +21,6 @@ const routes = [
     name: 'Локации',  
     sideBar: true,
   },
-  // { path: '/about', component: AboutView },
 ]
 
 const router = createRouter({

@@ -151,6 +151,7 @@ export default {
       if (this.multiSelect) {
         this.$emit('update:modelValue', this.chosenOptions)
       } else {
+        console.log('@@ chooseOption', idx, this.optionsListNew);
         this.actualOption = this.optionsListNew.find((el) => el.id == idx)
         this.inputToShow = this.actualOption?.name
         this.$emit('update:modelValue', idx)

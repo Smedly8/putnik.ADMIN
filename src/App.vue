@@ -5,7 +5,7 @@
 <template>
   <div id="main">
     <SideBar/>
-    <div class="container">
+    <div class="main-container">
       <RouterView />
     </div>
   </div>
@@ -22,7 +22,7 @@
   width: 100%;
 }
 
-.container {
+.main-container {
     box-shadow: $shadow;
     width: calc(100% - 40px);
     height: calc(100% - 40px);

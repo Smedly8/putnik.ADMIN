@@ -3,12 +3,36 @@ import ControlPanel from '@/components/widgets/ControlPanel.vue'
 import PointCard from '@/components/points/PointCard.vue'
 import PointModal from '@/components/points/PointModal.vue'
 import { ref } from 'vue'
+import { getLocations, postLocation, deleteLocation } from '@/api/locations.js'
+
+const isOpenModal = ref(false)
+const loading = ref(true)
 
 
+const locations = ref(null)
+
+const updateLocations = () => {
+    loading.value = true
+    getLocations()
+    .then(res => {
+        console.log('@@ getLocations', res.data)
+        locations.value = res.data
+        loading.value = false
+    })
+    .catch(err => {
+        console.error(err)
+    })
+
+}
+updateLocations()
+
+const defineEmits = {
+    
+}
 const points = ref([
     {
         id: 46547,
-        type: 1,
+        type: 'hub',
         name: 'Хаб Горячий ключ',
         lat: 23432.324,
         lon: 34234.433,
@@ -16,7 +40,7 @@ const points = ref([
     },
     {
         id: 21241,
-        type: 2,
+        type: 'resort',
         name: 'Придорожное кафе',
         lat: 23432.324,
         lon: 34234.433,
@@ -24,7 +48,7 @@ const points = ref([
     },
     {
         id: 4353,
-        type: 2,
+        type: 'pitstop',
         name: 'Автомойка',
         lat: 23432.324,
         lon: 34234.433,
@@ -32,7 +56,7 @@ const points = ref([
     },
     {
         id: 9257,
-        type: 2,
+        type: 'attraction',
         name: 'Хаб Горячий ключ',
         lat: 23432.324,
         lon: 34234.433,
@@ -40,7 +64,7 @@ const points = ref([
     },
     {
         id: 46547,
-        type: 1,
+        type: 'attraction',
         name: 'Хаб Горячий ключ',
         lat: 23432.324,
         lon: 34234.433,
@@ -48,7 +72,7 @@ const points = ref([
     },
     {
         id: 21241,
-        type: 2,
+        type: 'attraction',
         name: 'Придорожное кафе',
         lat: 23432.324,
         lon: 34234.433,
@@ -56,7 +80,7 @@ const points = ref([
     },
     {
         id: 4353,
-        type: 2,
+        type: 'attraction',
         name: 'Автомойка',
         lat: 23432.324,
         lon: 34234.433,
@@ -64,7 +88,7 @@ const points = ref([
     },
     {
         id: 9257,
-        type: 2,
+        type: 'attraction',
         name: 'Хаб Горячий ключ',
         lat: 23432.324,
         lon: 34234.433,
@@ -72,23 +96,43 @@ const points = ref([
     },
 ])
 
-const isOpenModal = ref(false)
+
+
 
 const openModal = () => {
     isOpenModal.value = true
 }
+
+const closeModal = () => {
+    isOpenModal.value = false
+}
+
+
+const createHandler = (payload) => {
+    console.log('@@ createHandler', payload);
+    loading.value = true
+    postLocation(payload)
+    .then(() => {
+        closeModal()
+        updateLocations()
+    })
+}
 </script>
 
 <template>
-    <div>
+    <div v-if="!loading">
         <ControlPanel @create="openModal"/>
         <div class="points-app">
-            <PointCard v-for="point in points" :key="point.id" :point="point"/>
+            <PointCard v-for="point in locations" :key="point.id" :point="point"/>
         </div>
 
         <div class="points-app">
         </div>
-        <PointModal v-if="isOpenModal"/>
+        <PointModal 
+            v-if="isOpenModal" 
+            @create="createHandler"
+            @close="closeModal"
+        />
     </div>
 </template>
 

@@ -1,4 +1,5 @@
 <script setup>
+    import { ref } from 'vue'
     import {pointTypes} from '@/common/constants/index.js'
     import YMapApp from '@/components/YMapApp.vue'
     // import MapApp from '@/components/MapApp.vue'
@@ -8,20 +9,22 @@
         }
     })
 
-    const getPointType = id =>{
-    return pointTypes[id]
-}
+    const getPointType = en => {
+        console.log('@@', en, pointTypes);
+        return pointTypes.find(el => el.en === en)?.ru || pointTypes[0].ru
+    }
+    const coords = ref({lat: props.point.lat, lon: props.point.lon})
 </script>
 
 <template>
     <div class="point-card">
-        <img :src="point.img" class="image" alt="">
+        <img :src="point.pictureUrl || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvhEY1Ssylhag6kP0SDkEUobLkknYMl1oJYJDq-4Q4FQ&s'" class="image" alt="">
         <div class="middle">
             <h2 class="middle__title"> {{ point.name }} </h2>
             <p class="middle__type">{{getPointType(point.type)}}</p>
         </div>
         <div class="map">
-            <!-- <YMapApp/> -->
+            <YMapApp :coords="coords"/>
         </div>
     </div>
 </template>
@@ -58,5 +61,6 @@
 
     .map{
         width: 400px;
+        pointer-events: none;
     }
 </style>
